@@ -9,6 +9,11 @@ def lambda_handler(event, context):
     public_sources = detect_public_ssh(event, target_group_id)
 
     if not public_sources:
+        print(json.dumps({
+            "result": "no_public_ssh_match",
+            "event_id": event.get("id"),
+            "target_group_id": target_group_id,
+        }))
         return False
 
     finding = {

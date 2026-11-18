@@ -38,7 +38,14 @@ class HandlerTests(unittest.TestCase):
                 result = lambda_handler(self.event, None)
 
         self.assertIs(result, False)
-        self.assertEqual(output.getvalue(), "")
+        self.assertEqual(
+            json.loads(output.getvalue()),
+            {
+                "result": "no_public_ssh_match",
+                "event_id": "test-event-1",
+                "target_group_id": "sg-example",
+            },
+        )
 
     def test_public_ssh_logs_a_finding(self):
         self.permission["ipRanges"]["items"][0]["cidrIp"] = "0.0.0.0/0"
