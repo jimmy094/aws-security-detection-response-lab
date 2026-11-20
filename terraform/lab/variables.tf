@@ -20,3 +20,10 @@ variable "terraform_execution_role_arn" {
     error_message = "The value must be the ARN of terraform-execution-role."
   }
 }
+
+variable "alert_email" {
+  description = "Email address that receives public SSH findings"
+  type        = string
+  sensitive   = true
+}
+
